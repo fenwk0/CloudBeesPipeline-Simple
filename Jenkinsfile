@@ -1,20 +1,34 @@
 pipeline {
   agent any
   stages {
-    stage('hello') {
-      steps {
-        sleep 5
-        echo 'hello PCTN'
+    stage('build') {
+      parallel {
+        stage('build-image') {
+          steps {
+            sleep 5
+            echo 'Building new image'
+          }
+        }
+        stage('build-config') {
+          steps {
+            echo 'Creating test config'
+          }
+        }
+        stage('populate-data-source') {
+          steps {
+            echo 'Drop tables'
+          }
+        }
       }
     }
-    stage('goodbye') {
+    stage('validate') {
       parallel {
-        stage('goodbye') {
+        stage('vaidate') {
           steps {
             echo 'bye'
           }
         }
-        stage('parallel step') {
+        stage('') {
           steps {
             sleep 2
             echo 'parallel step'
