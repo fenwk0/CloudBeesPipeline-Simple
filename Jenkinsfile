@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages {
-    stage('build') {
+    stage('initialise') {
       parallel {
         stage('build-image') {
           steps {
@@ -21,19 +21,33 @@ pipeline {
         }
       }
     }
-    stage('validate') {
+    stage('deploy') {
       parallel {
         stage('vaidate') {
           steps {
             echo 'bye'
           }
         }
-        stage('') {
+        stage('error') {
           steps {
             sleep 2
             echo 'parallel step'
           }
         }
+      }
+    }
+    stage('status') {
+      steps {
+        echo 'performing health checks'
+        sleep 2
+        echo 'health checks complete'
+      }
+    }
+    stage('load') {
+      steps {
+        echo 'load system'
+        sleep 2
+        echo 'load test finished'
       }
     }
   }
